@@ -595,7 +595,13 @@ case $COMMAND in
             rm -f $VOLFILE
         fi
 
-        mpc next
+        # Check for existing credit
+        if [ "$CREDIT" > 0 ]
+        then
+            mpc next
+        else
+            $PATHDATA/credit_controls.sh -c=outofcredit
+        fi
         ;;
     playerprev)
         # play previous track in playlist (==folder)
@@ -609,8 +615,13 @@ case $COMMAND in
             # delete $VOLFILE
             rm -f $VOLFILE
         fi
-
-        mpc prev
+        # Check for existing credit
+        if [ "$CREDIT" > 0 ]
+        then
+            mpc prev
+        else
+            $PATHDATA/credit_controls.sh -c=outofcredit
+        fi
         ;;
     playerprevchapter)
         CURRENT_SONG_ELAPSED_MS=$(sec_to_ms "$CURRENT_SONG_ELAPSED")

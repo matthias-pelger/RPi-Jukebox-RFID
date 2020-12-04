@@ -261,6 +261,16 @@ fi
 VERSION=`cat $PATHDATA/../settings/version`
 
 ##############################################
+# Value for multiple credit card
+# 1. create a default if file does not exist
+if [ ! -f $PATHDATA/../settings/multicredit ]; then
+    echo "5" > $PATHDATA/../settings/multicredit
+    chmod 777 $PATHDATA/../settings/multicredit
+fi
+# 2. then|or read value from file
+MULTICREDIT=`cat $PATHDATA/../settings/multicredit`
+
+##############################################
 # read control card ids
 # 1. read all values from file
 CMDVOLUP=`grep 'CMDVOLUP' $PATHDATA/../settings/rfid_trigger_play.conf|tail -1|sed 's/CMDVOLUP=//g'|sed 's/"//g'|tr -d "\n"|grep -o '[0-9]*'`
@@ -299,6 +309,7 @@ CMDSEEKBACK=`grep 'CMDSEEKBACK' $PATHDATA/../settings/rfid_trigger_play.conf|tai
 # CMDREWIND
 # CMDSEEKFORW
 # CMDSEEKBACK
+# MULTICREDIT
 
 #########################################################
 # WRITE CONFIG FILE
@@ -329,6 +340,7 @@ echo "CMDPREV=\"${CMDPREV}\"" >> "${PATHDATA}/../settings/global.conf"
 echo "CMDREWIND=\"${CMDREWIND}\"" >> "${PATHDATA}/../settings/global.conf"
 echo "CMDSEEKFORW=\"${CMDSEEKFORW}\"" >> "${PATHDATA}/../settings/global.conf"
 echo "CMDSEEKBACK=\"${CMDSEEKBACK}\"" >> "${PATHDATA}/../settings/global.conf"
+echo "MULTICREDIT=\"${MULTICREDIT}\"" >> "${PATHDATA}/../settings/global.conf"
 
 # Work in progress:
 #echo "MAILWLANIPYN=\"${MAILWLANIPYN}\"" >> "${PATHDATA}/../settings/global.conf"

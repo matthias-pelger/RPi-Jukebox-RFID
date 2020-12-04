@@ -271,6 +271,16 @@ if [ "$CARDID" ]; then
         $CMDREADWIFIIP)
             $PATHDATA/playout_controls.sh -c=readwifiipoverspeaker
             ;;
+        # Additions for the credit/coin system (Issue #1021)
+        $CMDCREDITADD1)
+            $PATHDATA/credit_controls.sh -c=addcredit -v=1
+            ;;
+        $CMDCREDITADDMULTI)
+            $PATHDATA/credit_controls.sh -c=addcredit -v=$MULTICREDIT
+            ;;
+        $CMDCREDITREDUCE1)
+            $PATHDATA/credit_controls.sh -c=reducecredit -v=1
+            ;;
         *)
 
             # We checked if the card was a special command, seems it wasn't.
