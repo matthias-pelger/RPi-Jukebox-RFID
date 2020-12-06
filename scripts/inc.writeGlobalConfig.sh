@@ -261,6 +261,16 @@ fi
 VERSION=`cat $PATHDATA/../settings/version`
 
 ##############################################
+# Enable or disable credit system
+# 1. create a default if file does not exist
+if [ ! -f $PATHDATA/../settings/credittrigger ]; then
+    echo "OFF" > $PATHDATA/../settings/credittrigger
+    chmod 777 $PATHDATA/../settings/multcredittriggericredit
+fi
+# 2. then|or read value from file
+CREDITTRIGGER=`cat $PATHDATA/../settings/credittrigger`
+
+##############################################
 # Value for multiple credit card
 # 1. create a default if file does not exist
 if [ ! -f $PATHDATA/../settings/multicredit ]; then
@@ -309,6 +319,7 @@ CMDSEEKBACK=`grep 'CMDSEEKBACK' $PATHDATA/../settings/rfid_trigger_play.conf|tai
 # CMDREWIND
 # CMDSEEKFORW
 # CMDSEEKBACK
+# CREDITTRIGGER
 # MULTICREDIT
 
 #########################################################
@@ -340,6 +351,7 @@ echo "CMDPREV=\"${CMDPREV}\"" >> "${PATHDATA}/../settings/global.conf"
 echo "CMDREWIND=\"${CMDREWIND}\"" >> "${PATHDATA}/../settings/global.conf"
 echo "CMDSEEKFORW=\"${CMDSEEKFORW}\"" >> "${PATHDATA}/../settings/global.conf"
 echo "CMDSEEKBACK=\"${CMDSEEKBACK}\"" >> "${PATHDATA}/../settings/global.conf"
+echo "CREDITTRIGGER=\"${CREDITTRIGGER}\"" >> "${PATHDATA}/../settings/global.conf"
 echo "MULTICREDIT=\"${MULTICREDIT}\"" >> "${PATHDATA}/../settings/global.conf"
 
 # Work in progress:

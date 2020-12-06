@@ -84,13 +84,25 @@ case $COMMAND in
         ;;
     playing)
         if [ "$CURRENT_SONG_INFO" -neq "$LAST_SONG_INFO" ]
-        then 
+        then
             let CREDIT-=1
+            # Check for existing credit
+            . $PATHDATA/credit_controls.sh -c=status
+            if [ "$CREDITOK" == "FALSE" ]
+            then
+                . $PATHDATA/playout_controls.sh -c=playerstop
+            fi
         fi
         LAST_SONG_INFO="$CURRENT_SONG_INFO"
         ;;
-    outofcredit)
-        #play audio file...
+    status)
+        # check for credit and return true or false...
+        CREDITOK="TRUE"
+        if [ "$CREDITTRIGGER" == "ON" ] && [ "$CREDIT" < 1 ]
+        then
+            CREDITOK="FALSE"
+            #play audio file... outofcredit
+        fi
         ;;
     *)
         echo Unknown COMMAND $COMMAND VALUE $VALUE

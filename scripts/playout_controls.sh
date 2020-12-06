@@ -596,11 +596,10 @@ case $COMMAND in
         fi
 
         # Check for existing credit
-        if [ "$CREDIT" > 0 ]
+        . $PATHDATA/credit_controls.sh -c=status
+        if [ "$CREDITOK" == "TRUE" ]
         then
             mpc next
-        else
-            $PATHDATA/credit_controls.sh -c=outofcredit
         fi
         ;;
     playerprev)
@@ -615,12 +614,12 @@ case $COMMAND in
             # delete $VOLFILE
             rm -f $VOLFILE
         fi
+        
         # Check for existing credit
-        if [ "$CREDIT" > 0 ]
+        . $PATHDATA/credit_controls.sh -c=status
+        if [ "$CREDITOK" == "TRUE" ]
         then
             mpc prev
-        else
-            $PATHDATA/credit_controls.sh -c=outofcredit
         fi
         ;;
     playerprevchapter)
